@@ -1,0 +1,6 @@
+# Date        | User       | Action/Step                                 | Description
+2025-07-11   | ji.wang    | Project initialized                         | Created directory structure and base documentation
+2025-07-12   | ji.wang    | Downloaded GENCODE v44 GTF                  | Saved to Reference_Data
+2025-07-12   | ji.wang    | Ran initial QC on Cut&Run data              | Used FastQC and multiQC, see Analysis_01/QC/
+# Use this as a running log of events
+

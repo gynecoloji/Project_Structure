@@ -1,0 +1,21 @@
+# Topic: Differential Expression Analysis
+# Run Date: 2025-07-11
+# Performed by: Ji Wang
+
+## Objective
+To identify differentially expressed genes between treated and control samples using DESeq2.
+
+## Key Settings
+- Normalization: median-of-ratios
+- Filtering: genes with >=10 counts in at least 2 samples
+- P-adjust method: Benjamini-Hochberg
+- FDR cutoff: 0.05
+
+## Output Files
+- DEG list: results/deseq2_results.tsv
+- Volcano plot: figures/volcano_plot.pdf
+- PCA plot: figures/pca_plot.pdf
+
+## Notes
+Rerun needed if filtering or contrast groups change.
+

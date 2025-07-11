@@ -1,0 +1,18 @@
+{
+  "analysis_date": "2025-07-11",
+  "tool": "DESeq2",
+  "reference_genome": "hg38",
+  "input_files": [
+    "../../../03-data/Data_01/Raw/sample1.counts.tsv",
+    "../../../03-data/Data_01/Raw/sample2.counts.tsv"
+  ],
+  "comparisons": [
+    {"group1": "treatment", "group2": "control"}
+  ],
+  "filtering_thresholds": {
+    "min_counts": 10,
+    "min_samples": 2
+  },
+  "normalization": "DESeq2 default"
+}
+

@@ -1,0 +1,31 @@
+# ============================================
+# Script Summary for Project <project_code>
+# ============================================
+
+## Overview
+This document lists all scripts used for project <project_code>, including their purpose, input files, output files, and notes on usage.
+
+---
+
+## Script Inventory
+
+| Script Name           | Purpose                          | Inputs                          | Outputs                       | Last Modified | Notes                      |
+|----------------------|---------------------------------|--------------------------------|------------------------------|---------------|----------------------------|
+| preprocess_counts.R   | Filter and normalize raw counts | ../03-data/Data_<project_code>/Raw/sample_counts.tsv | ../03-data/Data_<project_code>/Processed/norm_counts_log2.tsv | 2025-07-11    | Uses DESeq2 VST             |
+| run_deseq2.R          | Differential expression analysis | ../03-data/Data_<project_code>/Processed/norm_counts_log2.tsv | ../04-analysis/Analysis_<project_code>/Ana/Topic1/$(date +%F)_run/results/deseq2_results.tsv | 2025-07-11    | Adjust parameters as needed |
+| motif_analysis.sh     | Motif discovery using HOMER      | ../03-data/Data_<project_code>/Processed/peak_calls.bed | ../04-analysis/Analysis_<project_code>/Ana/Topic2/homerResults/ | 2025-07-12    | Requires HOMER installed    |
+| network_construction.py | Build TF-gene regulatory network | ../04-analysis/Analysis_<project_code>/Ana/Topic3/results/deg_list.tsv | ../04-analysis/Analysis_<project_code>/Ana/Topic3/results/network.gml | 2025-07-13    | Uses NetworkX              |
+
+---
+
+## Notes
+
+- Keep scripts modular and well-documented.
+- Update this summary after script changes.
+- Store scripts under version control (e.g., Git).
+- Document required software and environment in `01-documentation/tools_versions.txt`.
+
+---
+
+_Last updated: 2025-07-11_
+

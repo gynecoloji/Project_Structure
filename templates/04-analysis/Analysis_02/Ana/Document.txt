@@ -1,0 +1,69 @@
+# ============================================
+# Analysis_<project_code>/Ana/Document.txt
+# ============================================
+
+## 🧠 Objective
+Briefly describe the overall goal of the analysis for this project code.
+
+Example:
+To perform multi-layered integrative analysis of bulk RNA-seq and transcription factor motif data to uncover regulatory drivers of differential expression under treatment.
+
+---
+
+## 🧪 Data Summary
+
+- Sample size: 6 (3 control, 3 treatment)
+- Data types:
+  - Raw counts: featureCounts output (bulk RNA-seq)
+  - Motif peaks: HOMER motif calling results
+  - Reference genome: hg38
+- Data sources: see `01-documentation/data_sources.txt`
+
+---
+
+## 🧰 Tools & Pipelines
+
+- Bulk RNA-seq: STAR + featureCounts → DESeq2 (R)
+- Motif analysis: HOMER
+- Visualization: ggplot2, EnhancedVolcano, ComplexHeatmap
+
+---
+
+## 🧩 Sub-Analyses (Topics)
+
+| Topic ID | Focus                           | Last Run Date | Notes                         |
+|----------|----------------------------------|---------------|-------------------------------|
+| Topic1   | DEGs between treated vs control  | 2025-07-11    | Used DESeq2 + volcano plot    |
+| Topic2   | TF enrichment in DEG promoters   | 2025-07-15    | Linked HOMER motifs to DEGs   |
+| Topic3   | Network of TFs and receptors     | planned       | To be built using graph theory|
+
+---
+
+## 📌 Key Findings Summary
+
+- 356 DEGs (FDR < 0.05), 148 upregulated in treatment
+- Enrichment of AP-1 family motifs (Fos, Jun) in upregulated promoters
+- Several DEGs (e.g. FOSB, JUNB) have upstream motifs enriched in CRISPR screen hits
+
+---
+
+## 📅 Timeline
+
+| Date       | Activity                         | Notes |
+|------------|----------------------------------|-------|
+| 2025-07-10 | Dataset download & QC            | FASTQ + GTF |
+| 2025-07-11 | DEG analysis (Topic1)            | DESeq2 complete |
+| 2025-07-15 | Motif + TF analysis (Topic2)     | HOMER + known TF sets |
+
+---
+
+## ✅ Next Steps
+
+- [ ] Validate network in public datasets
+- [ ] Add ligand-receptor inference layer
+- [ ] Prepare final figures for paper draft
+
+---
+
+_Last updated: 2025-07-11_
+

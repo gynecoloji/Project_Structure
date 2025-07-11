@@ -1,0 +1,9 @@
+# Tool                | Version      | Install Method            | Notes
+FastQC               | 0.12.1       | conda (bioconda)          | QC for FASTQ files
+STAR                 | 2.7.10a      | conda (bioconda)          | For bulk RNA-seq alignment
+featureCounts        | 2.0.3        | conda (bioconda)          | Gene-level quantification
+HOMER                | 4.11         | manual                    | Motif analysis
+R                    | 4.3.2        | system                    | For downstream statistical analysis
+Seurat               | 5.0.1        | R package                 | For single-cell RNA-seq analysis
+# Add or update tool entries here
+

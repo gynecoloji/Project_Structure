@@ -191,7 +191,18 @@ Documentation and tracking across all steps is maintained in `01-documentation/`
 | `03-data/`                | All raw, processed, and reference input data |
 | `04-analysis/`            | Topic-based results and summaries |
 | `05-reports/`             | Slides, final visualizations |
-| `upstream_workflows/`     | Separate, clean pipelines for raw data preprocessing |
+| `upstream_workflows/`     | (optional)Separate, clean pipelines for raw data preprocessing |
+
+## Appendix
+
+| Folder               | File                 | Role |
+|----------------------|----------------------|------|
+| templates/ | |templates for the above directory tree and files included in it |
+| scripts/ | *.sh |bash files to initialize/create/add a project/topic |
+
+
+
+
 
 ---
 

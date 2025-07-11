@@ -1,0 +1,5 @@
+# sample_id	condition	replicate	file_path
+GSF4239-G3BP_P_S26	treatment	1	../03-data/Data_01/Raw/sample1.counts.tsv
+GSF4239-G3BP_P_S27	control	1	../03-data/Data_01/Raw/sample2.counts.tsv
+# Add more samples here, including replicates and conditions
+
