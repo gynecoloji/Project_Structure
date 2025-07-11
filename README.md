@@ -200,7 +200,19 @@ Documentation and tracking across all steps is maintained in `01-documentation/`
 | templates/ | |templates for the above directory tree and files included in it |
 | scripts/ | *.sh |bash files to initialize/create/add a project/topic |
 
+## Run scripts
+```bash
+git clone https://github.com/gynecoloji/Project_Structure.git
+cd scripts
+chmod +x create_project_structure.sh # initialize project 
+chmod +x add_topic_to_project.sh # add new topic# to existing project code
+chmod +x add_project_to_existing.sh # add new project code to existing project
 
+./create_project_structure.sh 01 "Bulk RNA-seq tumor vs normal project"
+./add_project_to_existing.sh 02 "Bulk ATAC-seq tumor vs normal project"
+./add_topic_to_project.sh 01 Topic2
+
+```
 
 
 
