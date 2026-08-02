@@ -1,57 +1,112 @@
-
 # 🧬 Bioinformatics Project Directory Structure
 
-This document outlines the structure and best practices for managing complex, multi-step bioinformatics analyses involving different sequencing data types and multiple sub-analyses.
+[![Test scripts](https://github.com/gynecoloji/Project_Structure/actions/workflows/test.yml/badge.svg)](https://github.com/gynecoloji/Project_Structure/actions/workflows/test.yml)
+[![Release](https://img.shields.io/github/v/release/gynecoloji/Project_Structure)](https://github.com/gynecoloji/Project_Structure/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+A reusable, **script-driven template** for organizing complex, multi-step
+bioinformatics analyses — multiple sequencing data types, multiple projects, and
+many sub-analyses — in a consistent, reproducible, and Claude-Code-friendly
+layout. Instead of hand-rolling folders for every study, run one script and get a
+fully scaffolded project with **matched, numbered folders** and ready-to-fill
+**Markdown documentation**.
 
 ---
 
-## 📌 Key Concepts
+## ✨ What this gives you
 
-- **Project Code (e.g., `01`)**: Shared by all main folders for a given project. Each folder for the same project ends in the same number (`Script_01`, `Data_01`, `Analysis_01`).
-- **Analysis number (`01_`, `02_`, …)**: Each downstream analysis gets a two-digit number and a short name (e.g. `01_diff_expression`). The **same number is reused** for that analysis across `02-scripts/`, `04-analysis/`, and `05-reports/`, so a script, its results, and its report line up.
-- **Run Folders**: Timestamped subfolders (`YYYY-MM-DD_run`) for each independent run of an analysis.
-
-> All shared documentation lives in `.md` files so it renders nicely on GitHub; tabular data stays as `.tsv`, parameters as `.json`, and run logs as `.log`.
+- **🔢 Numbered, matched folders** — every analysis has a number (`01_`, `02_`, …)
+  reused across its scripts, results, and reports, so related work always lines up.
+- **📝 Markdown-first docs** — scaffolding drops in real starter files (summaries,
+  `params.json`, metadata tables) instead of empty placeholders.
+- **⚙️ One-command scaffolding** — create a project, add a project code, or add an
+  auto-numbered analysis with a single script.
+- **🐍 Reproducible by default** — a conda `environment.yml`, a tools/versions
+  table, and a data-provenance log ship with every project.
+- **🤖 Claude Code aware** — each project includes a `CLAUDE.md` so Claude Code
+  knows where to save outputs and which docs to generate (no API needed).
+- **✅ CI + automated releases** — `shellcheck` + smoke tests on every push, and
+  versioning/changelogs handled by release-please.
 
 ---
 
-## 🗂️ Full Directory Layout Overview
+## 🚀 Quick start
+
+```bash
+# 1. Get the template and make the scripts runnable
+git clone https://github.com/gynecoloji/Project_Structure.git
+cd Project_Structure
+chmod +x scripts/*.sh
+
+# 2. Scaffold a new project (code 01) in a directory of your choice.
+#    The 4th argument names the first analysis (→ folder 01_diff_expression).
+./scripts/create_project_structure.sh 01 "Bulk RNA-seq tumor vs normal" ~/projects/my_study diff_expression
+
+# 3. Add a second project code (02) to the same workspace
+./scripts/add_project_to_existing.sh 02 "Bulk ATAC-seq tumor vs normal" ~/projects/my_study
+
+# 4. Add another analysis to project 01 — auto-numbered 02_, 03_, …
+./scripts/add_analysis_to_project.sh 01 motif_analysis ~/projects/my_study
+```
+
+> Omit the trailing path to scaffold in the current directory. Point the scripts at
+> where your project should live — **not** inside this repo, so you don't scaffold
+> on top of the templates. Re-running with an existing project code is refused so
+> you can't overwrite work.
+
+**Then just work in the project.** Open it with Claude Code (`cd ~/projects/my_study && claude`) and it reads the bundled `CLAUDE.md` automatically — see [Working with Claude Code](#-working-with-claude-code). To reproduce the software environment:
+
+```bash
+conda env create -f 01-documentation/environment.yml
+```
+
+---
+
+## 🗂️ What gets created
 
 ```
-project_root/
+my_study/
 ├── CLAUDE.md             # Claude Code guidance: where outputs go + which .md docs to write
-├── 01-documentation/
-├── 02-scripts/
-├── 03-data/
-├── 04-analysis/
-├── 05-reports/
+├── 01-documentation/     # metadata, sample sheet, tool versions, data sources, logs
+├── 02-scripts/           # number-prefixed scripts, per project
+├── 03-data/              # Raw / Processed / Reference_Data, per project
+├── 04-analysis/          # numbered analyses → dated runs → figures/results/logs
+├── 05-reports/           # final figures & slides, by the same analysis numbers
 └── upstream_workflows/   # optional, created manually
 ```
 
 ---
 
-## 📁 01-documentation/ — Metadata, Logs & Sample Info
+## 📌 Key concepts
 
-> Stores key metadata and contextual info for the entire project.
+- **Project Code (e.g. `01`)**: Shared by all main folders for a given project. Each folder for the same project ends in the same number (`Script_01`, `Data_01`, `Analysis_01`).
+- **Analysis number (`01_`, `02_`, …)**: Each downstream analysis gets a two-digit number and a short name (e.g. `01_diff_expression`). The **same number is reused** across `02-scripts/`, `04-analysis/`, and `05-reports/`, so a script, its results, and its report line up.
+- **Run folders**: Timestamped subfolders (`YYYY-MM-DD_run`) for each independent run of an analysis.
 
-### Contents:
-- `Metadata_summary.md`: High-level index of all project datasets and purposes.
-- `Metadata_<project>.md`: Detailed info for each dataset.
-- `sample_sheet.tsv`: Sample-to-condition mapping for each run.
-- `data_sources.md`: Download URLs, versions, checksums for external data.
-- `tools_versions.md`: Human-readable table of tools & versions.
-- `environment.yml`: Conda environment spec — recreate with `conda env create -f 01-documentation/environment.yml`.
-- `experiment_log.md`: Manual notes on important steps, decisions.
-- `README.md`: Explains the documentation folder.
-- `design_diagrams/`: (Optional) pipeline/data flow figures.
+> All documentation lives in `.md` files so it renders nicely on GitHub; tabular data stays as `.tsv`, parameters as `.json`, and run logs as `.log`.
 
 ---
 
-## 📁 02-scripts/ — Scripts Per Project
+## 📁 Folder reference
+
+### 📁 01-documentation/ — Metadata, Logs & Sample Info
+
+> Key metadata and contextual info for the entire workspace.
+
+- `Metadata_summary.md`: High-level index of all projects and purposes.
+- `Metadata_<project>.md`: Detailed info for each project.
+- `sample_sheet.tsv`: Sample-to-condition mapping for each run.
+- `data_sources.md`: Download URLs, versions, checksums for external data.
+- `tools_versions.md`: Human-readable table of tools & versions.
+- `environment.yml`: Conda environment spec — `conda env create -f 01-documentation/environment.yml`.
+- `experiment_log.md`: Manual notes on important steps and decisions.
+- `README.md`: Explains the documentation folder.
+- `design_diagrams/`: (Optional) pipeline/data-flow figures.
+
+### 📁 02-scripts/ — Scripts Per Project
 
 > All scripts (R, Python, shell) related to analyses in this project.
 
-### Structure:
 ```
 02-scripts/
 └── Script_<project_code>/
@@ -61,18 +116,14 @@ project_root/
     └── 02_motif_analysis.sh     # analysis 02_<name>
 ```
 
-**Best Practices:**
 - Prefix each script with its analysis number so it lines up with `04-analysis/` and `05-reports/`. Several scripts can share a number if they feed the same analysis.
 - Describe every script in `script_summary.md`.
-- Keep function-specific scripts separate and use relative paths for portability.
+- Keep scripts modular and use relative paths for portability.
 
----
+### 📁 03-data/ — Input Data (Raw, Processed, References)
 
-## 📁 03-data/ — Input Data (Raw, Processed, References)
+> All data used for downstream analysis, organized per project.
 
-> Contains all data used for downstream analysis, organized per project.
-
-### Structure:
 ```
 03-data/
 └── Data_<project_code>/
@@ -81,19 +132,14 @@ project_root/
     └── Reference_Data/   # Genomes, GTFs, motifs, DBs
 ```
 
-### Notes:
-- Never alter files in `Raw/`.
-- Use symbolic links or config files in analysis to access them.
+- Never alter files in `Raw/`; access them via symlinks or config.
 - Track sources in `01-documentation/data_sources.md`.
 - Large data (`Raw/`, `Reference_Data/`, BAMs, FASTQs, `.rds`, …) is kept out of git by `.gitignore`.
 
----
+### 📁 04-analysis/ — Results, Figures, Parameters
 
-## 📁 04-analysis/ — Results, Figures, Parameters
+> All downstream analysis, organized by project, then numbered analysis, then run.
 
-> All downstream analysis organized by project, then by numbered analysis and run.
-
-### Structure:
 ```
 04-analysis/
 └── Analysis_<project_code>/
@@ -111,19 +157,14 @@ project_root/
         └── ...
 ```
 
-### Best Practices:
 - Each numbered analysis (`01_<name>`, `02_<name>`, …) matches a script prefix in `02-scripts/` and a report folder in `05-reports/`.
 - Each `run/` folder is a self-contained run with its own logs and outputs.
-- Use `summary.md` to describe input data (paths), parameters, scripts used, and key findings.
-- Place figures in `figures/` and tables in `results/`.
+- Use `summary.md` to record input data (paths), parameters, scripts used, and key findings.
 
----
+### 📁 05-reports/ — Presentations & Communication
 
-## 📁 05-reports/ — Presentations & Communication
+> External-facing slides, posters, and final figures — by the same analysis numbers.
 
-> For external-facing slides, posters, and final figures — organized by the same analysis numbers.
-
-### Structure:
 ```
 05-reports/
 └── Analysis_<project_code>/
@@ -131,17 +172,13 @@ project_root/
     └── 02_<name>/           # final figures / slides for analysis 02
 ```
 
-### Notes:
-- This folder is for presentations only — no raw or intermediate data.
+- Presentations only — no raw or intermediate data.
 - Final figures should be copied from `04-analysis/.../<NN>_<name>/.../figures/`.
 
----
-
-## 📁 upstream_workflows/ — Pipelines for Raw Data Processing
+### 📁 upstream_workflows/ — Pipelines for Raw Data Processing
 
 > Each subfolder corresponds to a data type with its own workflow.
 
-### Structure (mostly depending on upstream workflow):
 ```
 upstream_workflows/
 ├── scRNAseq/
@@ -152,15 +189,13 @@ upstream_workflows/
 └── shared_references/
 ```
 
-### Notes:
 - ⚠️ This folder is **optional and is not created by the setup scripts** — add it manually if your workflow needs a separate raw-data-processing stage.
-- Final outputs (e.g., count matrices) are transferred to `03-data/Data_<project_code>/Raw/`.
-- Use symbolic links or export scripts to automate transfer.
-- `shared_references/` contains indexed genomes, motifs, GTFs, etc., used across pipelines.
+- Final outputs (e.g. count matrices) are transferred to `03-data/Data_<project_code>/Raw/`.
+- `shared_references/` holds indexed genomes, motifs, GTFs, etc. shared across pipelines.
 
 ---
 
-## 🔄 Workflow Flowchart
+## 🔄 Workflow flowchart
 
 ```
 upstream_workflows/       →     03-data/
@@ -175,13 +210,45 @@ Documentation and tracking across all steps is maintained in `01-documentation/`
 
 ---
 
-## 🧰 Optional Tools & Automation Suggestions
+## 🤖 Working with Claude Code
+
+Every generated project ships a root **`CLAUDE.md`**. When you open the project
+with [Claude Code](https://claude.com/claude-code) (`claude` in the project
+directory), it loads those conventions automatically and will:
+
+- save scripts, data, analysis outputs, and reports to the **correct matched
+  folders** (same number across `02-scripts/`, `04-analysis/`, `05-reports/`);
+- generate the matching **Markdown docs** — `script_summary.md`, run `summary.md`,
+  `Processed/README.md`, and report notes — in the same folder as the artifact;
+- keep **`01-documentation/` metadata** current (sample sheet, data sources, tool
+  versions, experiment log).
+
+No API key or extra setup required — it's plain project memory that Claude Code reads.
+
+---
+
+## 🏷️ Versioning & releases
+
+Releases are automated with [release-please](https://github.com/googleapis/release-please)
+from [Conventional Commits](https://www.conventionalcommits.org/):
+
+- Push `feat:` / `fix:` commits to `main` → release-please opens a **release PR**
+  that bumps the version and updates `CHANGELOG.md`.
+- Merge that PR → it tags `vX.Y.Z` and publishes a GitHub Release.
+
+CI (`.github/workflows/test.yml`) lints the scripts with `shellcheck` and
+smoke-tests that they still scaffold a valid project. See **[RELEASING.md](RELEASING.md)**
+for the full flow and the one-time repo setting.
+
+---
+
+## 🧰 Automation cheatsheet
 
 | Task | Tool/Script |
 |------|-------------|
-| Initialize a new project structure | `scripts/create_project_structure.sh <code> "<desc>" [dir] [analysis_name]` |
+| Initialize a new project | `scripts/create_project_structure.sh <code> "<desc>" [dir] [analysis_name]` |
 | Add another project code | `scripts/add_project_to_existing.sh <code> "<desc>" [dir] [analysis_name]` |
-| Add a new numbered analysis (auto 02, 03, …) | `scripts/add_analysis_to_project.sh <code> <name> [dir]` |
+| Add a numbered analysis (auto 02, 03, …) | `scripts/add_analysis_to_project.sh <code> <name> [dir]` |
 | Log tool versions | `conda list > 01-documentation/tools_versions.md` |
 | Recreate the conda environment | `conda env create -f 01-documentation/environment.yml` |
 | Track project-wide metadata | Auto-appended to `Metadata_summary.md` by the scripts |
@@ -189,52 +256,26 @@ Documentation and tracking across all steps is maintained in `01-documentation/`
 
 ---
 
-## ✅ Folder Role Summary
+## ✅ Folder role summary
 
-| Folder                     | Role |
-|---------------------------|------|
-| `01-documentation/`       | Metadata, logs, source tracking, versioning |
-| `02-scripts/`             | Reproducible, number-prefixed scripts per project |
-| `03-data/`                | All raw, processed, and reference input data |
-| `04-analysis/`            | Numbered analyses, runs, results and summaries |
-| `05-reports/`             | Slides, final visualizations (same analysis numbers) |
-| `upstream_workflows/`     | (optional) Separate, clean pipelines for raw data preprocessing |
+| Folder | Role |
+|--------|------|
+| `01-documentation/` | Metadata, logs, source tracking, versioning |
+| `02-scripts/` | Reproducible, number-prefixed scripts per project |
+| `03-data/` | All raw, processed, and reference input data |
+| `04-analysis/` | Numbered analyses, runs, results and summaries |
+| `05-reports/` | Slides, final visualizations (same analysis numbers) |
+| `upstream_workflows/` | (optional) Separate pipelines for raw data preprocessing |
 
-## Appendix
+### Repo files
 
-| Folder               | File                 | Role |
-|----------------------|----------------------|------|
-| templates/ | |templates for the above directory tree and files included in it |
-| scripts/ | *.sh |bash files to initialize/create/add a project or analysis |
-| (root) | CLAUDE.md | Claude Code guidance: where each artifact goes + which `.md` docs to generate |
-| (root) | .gitignore | keeps large sequencing data & run outputs out of version control |
-| (root) | LICENSE | MIT license terms |
-
-## Run scripts
-
-The scripts build the project tree in the **current directory** by default, or in
-an optional `[output_dir]` passed as the third argument. Starter files are
-auto-populated from `templates/` (real headers/examples, not empty files). Point
-them at the directory where your project should live — **not** inside this repo —
-so you don't scaffold on top of the templates.
-
-```bash
-git clone https://github.com/gynecoloji/Project_Structure.git
-cd Project_Structure
-chmod +x scripts/*.sh
-
-# Initialize a new project (code 01); the optional 4th arg names the first analysis:
-./scripts/create_project_structure.sh 01 "Bulk RNA-seq tumor vs normal project" ~/projects/my_study diff_expression
-
-# Add another project code (02) to the same location:
-./scripts/add_project_to_existing.sh 02 "Bulk ATAC-seq tumor vs normal project" ~/projects/my_study
-
-# Add a new numbered analysis to project 01 (auto-assigned 02, 03, …):
-./scripts/add_analysis_to_project.sh 01 motif_analysis ~/projects/my_study
-```
-
-> Omit the trailing path to create the structure in the current directory.
-> Re-running with an existing project code is refused so you can't overwrite work;
-> `add_analysis_to_project.sh` checks that the project exists and picks the next free number.
+| Path | Role |
+|------|------|
+| `templates/` | The exact tree and starter files that generated projects receive |
+| `scripts/*.sh` | Bash tools to initialize/create/add a project or analysis |
+| `CLAUDE.md` (root of each project) | Claude Code guidance: where each artifact goes + which `.md` docs to generate |
+| `.gitignore` | Keeps large sequencing data & run outputs out of version control |
+| `LICENSE` | MIT license terms |
+| `RELEASING.md` | How releases are cut (release-please) |
 
 ---
