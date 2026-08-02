@@ -1,5 +1,6 @@
 # 🧬 Bioinformatics Project Directory Structure
 
+[![DOI](https://zenodo.org/badge/1017777377.svg)](https://doi.org/10.5281/zenodo.21763803)
 [![Test scripts](https://github.com/gynecoloji/Project_Structure/actions/workflows/test.yml/badge.svg)](https://github.com/gynecoloji/Project_Structure/actions/workflows/test.yml)
 [![Release](https://img.shields.io/github/v/release/gynecoloji/Project_Structure)](https://github.com/gynecoloji/Project_Structure/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
