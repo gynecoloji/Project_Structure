@@ -1,0 +1,33 @@
+# Conda environment for this project's bioinformatics analyses.
+#
+# Recreate:  conda env create -f 01-documentation/environment.yml
+# Activate:  conda activate bioinfo-project
+# Update:    edit this file, then `conda env update -f 01-documentation/environment.yml --prune`
+#            and keep tools_versions.txt in sync.
+#
+# Rename `bioinfo-project` to something project-specific before creating the env.
+name: bioinfo-project
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  # ── Quality control ──
+  - fastqc=0.12.1
+  - multiqc
+  # ── Alignment & quantification (bulk RNA-seq) ──
+  - star=2.7.10a
+  - subread=2.0.3          # provides featureCounts
+  - samtools
+  # ── Motif / peak analysis ──
+  - homer=4.11
+  # ── R & downstream statistics ──
+  - r-base=4.3.2
+  - bioconductor-deseq2
+  - r-seurat=5.0.1         # if the solve fails, drop the pin or install from within R
+  # ── Python downstream ──
+  - python=3.11
+  - pandas
+  - numpy
+  - scanpy
+  - networkx
+  # Add project-specific tools below, and record versions in tools_versions.txt

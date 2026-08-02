@@ -1,0 +1,13 @@
+# Data Sources
+
+External databases and resources used in this workspace. Add a row for every
+download, and record the version and access date for reproducibility.
+
+| Source Database or File | URL or Path | Version | Date Accessed |
+|-------------------------|-------------|---------|---------------|
+| GENCODE GTF | https://www.gencodegenes.org/human/release_44.html | v44 | 2025-07-11 |
+| HG38 Genome FASTA | https://hgdownload.soe.ucsc.edu/goldenPath/hg38/ | UCSC hg38 | 2025-07-11 |
+| HOMER Motif Database | bundled with HOMER | v5.0 | 2025-07-11 |
+| ImmPort TF Targets | https://www.immport.org/shared/home | 2022-11 | 2025-07-10 |
+
+<!-- Add new entries as new table rows. -->
