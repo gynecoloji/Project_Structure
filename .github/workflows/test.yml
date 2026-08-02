@@ -1,0 +1,72 @@
+# Lints the generator scripts and smoke-tests that they still scaffold a valid
+# project. This is the shell-project analog of a Python lint + pytest workflow:
+# there is no package to build, so "tests" means running the scripts end to end
+# and asserting the output tree.
+
+name: Test scripts
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Lint & smoke-test the scaffolding scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lint with shellcheck
+        run: |
+          # shellcheck is preinstalled on GitHub-hosted ubuntu runners.
+          # Fail on errors; report style/warnings without failing the build
+          # (mirrors the critical-vs-advisory lint split in the source repo).
+          shellcheck --severity=error scripts/*.sh
+          shellcheck scripts/*.sh || true
+
+      - name: Check bash syntax
+        run: |
+          for s in scripts/*.sh; do
+            bash -n "$s"
+          done
+
+      - name: Smoke-test the scaffolding scripts
+        run: |
+          set -euo pipefail
+          work="$(mktemp -d)"
+
+          ./scripts/create_project_structure.sh 01 "CI RNA-seq demo" "$work" diff_expression
+          ./scripts/add_project_to_existing.sh 02 "CI ATAC-seq demo" "$work"
+          ./scripts/add_analysis_to_project.sh 01 motif_analysis "$work"
+
+          cd "$work"
+
+          # Everything is Markdown now — no stray .txt files.
+          if find . -name '*.txt' | grep -q .; then
+            echo "::error::unexpected .txt files in generated project"; exit 1
+          fi
+
+          # Core starter files exist and are non-empty.
+          test -s 01-documentation/README.md
+          test -s 01-documentation/environment.yml
+          test -s 02-scripts/Script_01/script_summary.md
+          test -s 04-analysis/Analysis_01/overview.md
+
+          # The added analysis was auto-numbered 02_ and the report folder
+          # shares the same number.
+          test -d 04-analysis/Analysis_01/02_motif_analysis
+          test -d 05-reports/Analysis_01/02_motif_analysis
+
+          # Generated params.json files are valid JSON.
+          python3 -c "import json, glob; [json.load(open(f)) for f in glob.glob('04-analysis/**/params.json', recursive=True)]"
+
+          # Metadata index lists both projects, once each.
+          grep -q '^Metadata_01:' 01-documentation/Metadata_summary.md
+          grep -q '^Metadata_02:' 01-documentation/Metadata_summary.md
+
+          echo "✅ smoke test passed"

@@ -1,0 +1,32 @@
+name: release-please
+
+# Automates versioning + releases from Conventional Commit messages.
+# On every push to the default branch (main), release-please opens/updates a
+# "release PR" that bumps the version and updates CHANGELOG.md. Merging that PR
+# tags the version (vX.Y.Z) and publishes a GitHub Release. See RELEASING.md.
+#
+# One-time repo setting required: Settings → Actions → General →
+# "Allow GitHub Actions to create and approve pull requests" → enabled.
+#
+# release-please must run on exactly ONE branch (main here); running it on more
+# than one opens competing release PRs.
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
