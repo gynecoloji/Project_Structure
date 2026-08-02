@@ -1,0 +1,84 @@
+# ── OS / editor cruft ─────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# ── Raw & reference data — never commit these ─────
+# Track provenance in 01-documentation/data_sources.txt instead.
+03-data/**/Raw/*
+!03-data/**/Raw/.gitkeep
+03-data/**/Reference_Data/*
+!03-data/**/Reference_Data/.gitkeep
+
+# Sequencing / alignment formats
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+*.sam
+*.bam
+*.bai
+*.cram
+*.crai
+*.vcf
+*.vcf.gz
+*.bcf
+*.bigWig
+*.bw
+*.bedGraph
+*.wig
+*.2bit
+*.bed.gz
+
+# Genome / annotation / index files
+*.fa
+*.fasta
+*.fa.gz
+*.fasta.gz
+*.fai
+*.gtf
+*.gtf.gz
+*.gff
+*.gff3
+*.dict
+*.idx
+*.ht2
+*.bt2
+*.ebwt
+
+# Large tabular / matrix / object outputs
+*.counts.tsv
+*.mtx
+*.mtx.gz
+*.h5
+*.h5ad
+*.loom
+*.rds
+*.Rds
+*.RData
+
+# ── Analysis run outputs (keep the folders, drop the bulk) ─
+04-analysis/**/results/*
+!04-analysis/**/results/.gitkeep
+04-analysis/**/logs/*
+!04-analysis/**/logs/.gitkeep
+# Figures are kept by default. Uncomment to stop tracking them:
+# 04-analysis/**/figures/*
+# !04-analysis/**/figures/.gitkeep
+
+# ── Language / environment cruft ──────────────────
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.Rhistory
+.Rproj.user/
+.snakemake/
+env/
+venv/
+.conda/
+*.log
+# ...but keep the per-analysis maintained log (transient run logs live in logs/)
+!analysis.log

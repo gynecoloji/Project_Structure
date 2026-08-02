@@ -1,0 +1,23 @@
+# Line-ending policy. Normalize every text file to LF in the repository and in
+# the working tree on all platforms. Shell scripts in particular MUST stay LF —
+# CRLF line endings break `#!/bin/bash` execution on Linux.
+* text=auto eol=lf
+*.sh text eol=lf
+
+# Windows batch files genuinely need CRLF (none tracked today).
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Explicitly binary: never normalize, never diff as text.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.pdf   binary
+*.gz    binary
+*.zip   binary
+*.xlsx  binary
+*.pptx  binary
+
+# release-please maintains this file; keep it out of language stats and diffs.
+CHANGELOG.md linguist-generated=true
