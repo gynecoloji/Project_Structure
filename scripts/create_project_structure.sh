@@ -75,6 +75,9 @@ run_date="$(date +%F)"
 analysis_dir="01_${analysis_name}"
 run_dir="04-analysis/Analysis_${project_code}/${analysis_dir}/${run_date}_run"
 
+# ── Project root (Claude Code guidance) ──────────────────────────────
+install_once "CLAUDE.md" "CLAUDE.md"
+
 # ── 01 Documentation (project-wide; created once) ─────────────────────
 mkdir -p 01-documentation/design_diagrams
 keep 01-documentation/design_diagrams

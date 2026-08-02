@@ -19,6 +19,7 @@ This document outlines the structure and best practices for managing complex, mu
 
 ```
 project_root/
+├── CLAUDE.md             # Claude Code guidance: where outputs go + which .md docs to write
 ├── 01-documentation/
 ├── 02-scripts/
 ├── 03-data/
@@ -205,6 +206,7 @@ Documentation and tracking across all steps is maintained in `01-documentation/`
 |----------------------|----------------------|------|
 | templates/ | |templates for the above directory tree and files included in it |
 | scripts/ | *.sh |bash files to initialize/create/add a project or analysis |
+| (root) | CLAUDE.md | Claude Code guidance: where each artifact goes + which `.md` docs to generate |
 | (root) | .gitignore | keeps large sequencing data & run outputs out of version control |
 | (root) | LICENSE | MIT license terms |
 

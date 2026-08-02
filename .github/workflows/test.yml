@@ -52,6 +52,7 @@ jobs:
           fi
 
           # Core starter files exist and are non-empty.
+          test -s CLAUDE.md
           test -s 01-documentation/README.md
           test -s 01-documentation/environment.yml
           test -s 02-scripts/Script_01/script_summary.md
