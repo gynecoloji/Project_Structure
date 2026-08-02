@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/gynecoloji/Project_Structure/compare/v1.0.0...v1.1.0) (2026-08-02)
+
+
+### Added
+
+* ship CLAUDE.md into generated projects ([73c50cf](https://github.com/gynecoloji/Project_Structure/commit/73c50cf78c2ab9e17dbdb4aa615848128273d4f6))
+
 ## 1.0.0 (2026-08-02)
 
 
