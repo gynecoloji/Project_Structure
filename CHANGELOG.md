@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/gynecoloji/Project_Structure/compare/v1.1.0...v1.1.1) (2026-08-02)
+
+
+### Documentation
+
+* rewrite README as an intro + how-to-use guide ([909ca1e](https://github.com/gynecoloji/Project_Structure/commit/909ca1e79cd2bd8a1604c5c329ad02d849610394))
+
 ## [1.1.0](https://github.com/gynecoloji/Project_Structure/compare/v1.0.0...v1.1.0) (2026-08-02)
 
 
