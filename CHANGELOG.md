@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/gynecoloji/Project_Structure/compare/v1.1.1...v1.2.0) (2026-08-03)
+
+
+### Added
+
+* make 05-reports a flat per-project summary (pptx + md, no ([6e1041b](https://github.com/gynecoloji/Project_Structure/commit/6e1041b2e014911b3bc00e68c6b8b8e3dea97e92))
+
 ## [1.1.1](https://github.com/gynecoloji/Project_Structure/compare/v1.1.0...v1.1.1) (2026-08-02)
 
 
