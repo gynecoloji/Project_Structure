@@ -58,10 +58,11 @@ jobs:
           test -s 02-scripts/Script_01/script_summary.md
           test -s 04-analysis/Analysis_01/overview.md
 
-          # The added analysis was auto-numbered 02_ and the report folder
-          # shares the same number.
+          # The added analysis was auto-numbered 02_ under 04-analysis.
           test -d 04-analysis/Analysis_01/02_motif_analysis
-          test -d 05-reports/Analysis_01/02_motif_analysis
+          # Reports are a flat per-project summary (.pptx + .md), NOT subfolders.
+          test -s 05-reports/Analysis_01/report_summary.md
+          [ ! -d 05-reports/Analysis_01/02_motif_analysis ]
 
           # Generated params.json files are valid JSON.
           python3 -c "import json, glob; [json.load(open(f)) for f in glob.glob('04-analysis/**/params.json', recursive=True)]"

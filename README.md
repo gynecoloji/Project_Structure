@@ -16,8 +16,8 @@ fully scaffolded project with **matched, numbered folders** and ready-to-fill
 
 ## ✨ What this gives you
 
-- **🔢 Numbered, matched folders** — every analysis has a number (`01_`, `02_`, …)
-  reused across its scripts, results, and reports, so related work always lines up.
+- **🔢 Numbered, matched folders** — within a project, every analysis has a number
+  (`01_`, `02_`, …) reused across its scripts and results, so related work lines up.
 - **📝 Markdown-first docs** — scaffolding drops in real starter files (summaries,
   `params.json`, metadata tables) instead of empty placeholders.
 - **⚙️ One-command scaffolding** — create a project, add a project code, or add an
@@ -72,7 +72,7 @@ my_study/
 ├── 02-scripts/           # number-prefixed scripts, per project
 ├── 03-data/              # Raw / Processed / Reference_Data, per project
 ├── 04-analysis/          # numbered analyses → dated runs → figures/results/logs
-├── 05-reports/           # final figures & slides, by the same analysis numbers
+├── 05-reports/           # per-project .pptx + .md summary of the analyses
 └── upstream_workflows/   # optional, created manually
 ```
 
@@ -80,8 +80,8 @@ my_study/
 
 ## 📌 Key concepts
 
-- **Project Code (e.g. `01`)**: Shared by all main folders for a given project. Each folder for the same project ends in the same number (`Script_01`, `Data_01`, `Analysis_01`).
-- **Analysis number (`01_`, `02_`, …)**: Each downstream analysis gets a two-digit number and a short name (e.g. `01_diff_expression`). The **same number is reused** across `02-scripts/`, `04-analysis/`, and `05-reports/`, so a script, its results, and its report line up.
+- **Project Code (e.g. `01`)**: Ties everything for one project together — `01-documentation/Metadata_01.md`, `02-scripts/Script_01/`, `03-data/Data_01/`, `04-analysis/Analysis_01/`, and `05-reports/Analysis_01/` all refer to the **same project**.
+- **Analysis number (`01_`, `02_`, …)**: Within a project, each downstream analysis gets a two-digit number and short name (e.g. `01_diff_expression`), reused across `02-scripts/` (script prefix) and `04-analysis/` (analysis folder) so a script and its results line up. Reports are a single per-project summary (see `05-reports/`).
 - **Run folders**: Timestamped subfolders (`YYYY-MM-DD_run`) for each independent run of an analysis.
 
 > All documentation lives in `.md` files so it renders nicely on GitHub; tabular data stays as `.tsv`, parameters as `.json`, and run logs as `.log`.
@@ -158,23 +158,24 @@ my_study/
         └── ...
 ```
 
-- Each numbered analysis (`01_<name>`, `02_<name>`, …) matches a script prefix in `02-scripts/` and a report folder in `05-reports/`.
+- Each numbered analysis (`01_<name>`, `02_<name>`, …) matches a script prefix in `02-scripts/`; the whole project is summarized in `05-reports/Analysis_<project_code>/`.
 - Each `run/` folder is a self-contained run with its own logs and outputs.
 - Use `summary.md` to record input data (paths), parameters, scripts used, and key findings.
 
 ### 📁 05-reports/ — Presentations & Communication
 
-> External-facing slides, posters, and final figures — by the same analysis numbers.
+> One presentation-ready summary per project — **only `.pptx` and `.md` files, no subfolders**.
 
 ```
 05-reports/
 └── Analysis_<project_code>/
-    ├── 01_<name>/           # final figures / slides for analysis 01
-    └── 02_<name>/           # final figures / slides for analysis 02
+    ├── report_summary.md                        # Markdown summary of the project's analyses
+    └── Analysis_<project_code>_summary.pptx      # slide deck
 ```
 
+- **Only `.pptx` and `.md` files** here, summarizing the analytical results from `04-analysis/Analysis_<project_code>/`. **Do not create subfolders.**
 - Presentations only — no raw or intermediate data.
-- Final figures should be copied from `04-analysis/.../<NN>_<name>/.../figures/`.
+- Copy final figures from `04-analysis/.../<NN>_<name>/.../figures/` into the deck / summary.
 
 ### 📁 upstream_workflows/ — Pipelines for Raw Data Processing
 
@@ -217,10 +218,11 @@ Every generated project ships a root **`CLAUDE.md`**. When you open the project
 with [Claude Code](https://claude.com/claude-code) (`claude` in the project
 directory), it loads those conventions automatically and will:
 
-- save scripts, data, analysis outputs, and reports to the **correct matched
-  folders** (same number across `02-scripts/`, `04-analysis/`, `05-reports/`);
+- save scripts, data, and analysis outputs to the **correct matched folders**
+  (same number across `02-scripts/` and `04-analysis/`; a single summary per
+  project in `05-reports/Analysis_<code>/`);
 - generate the matching **Markdown docs** — `script_summary.md`, run `summary.md`,
-  `Processed/README.md`, and report notes — in the same folder as the artifact;
+  `Processed/README.md`, and the `05-reports/` `report_summary.md`;
 - keep **`01-documentation/` metadata** current (sample sheet, data sources, tool
   versions, experiment log).
 
@@ -265,7 +267,7 @@ for the full flow and the one-time repo setting.
 | `02-scripts/` | Reproducible, number-prefixed scripts per project |
 | `03-data/` | All raw, processed, and reference input data |
 | `04-analysis/` | Numbered analyses, runs, results and summaries |
-| `05-reports/` | Slides, final visualizations (same analysis numbers) |
+| `05-reports/` | Per-project `.pptx` + `.md` summary of the analyses (no subfolders) |
 | `upstream_workflows/` | (optional) Separate pipelines for raw data preprocessing |
 
 ### Repo files

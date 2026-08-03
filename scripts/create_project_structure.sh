@@ -114,8 +114,9 @@ sed -i "s#01_diff_expression#${analysis_dir}#g" "$run_dir/params.json" "$run_dir
         "04-analysis/Analysis_${project_code}/overview.md"
 : > "04-analysis/Analysis_${project_code}/${analysis_dir}/analysis.log"
 
-# ── 05 Reports (same number as the analysis) ──────────────────────────
-keep "05-reports/Analysis_${project_code}/${analysis_dir}"
+# ── 05 Reports (project-level summary; .pptx + .md only, no subfolders) ─
+install_file "05-reports/Analysis_02/report_summary.md" "05-reports/Analysis_${project_code}/report_summary.md"
+sed -i "s#01_diff_expression#${analysis_dir}#g" "05-reports/Analysis_${project_code}/report_summary.md"
 
 echo "✅ Project code ${project_code} created under ${output_dir}."
 echo "   First analysis: 04-analysis/Analysis_${project_code}/${analysis_dir}/ (run: ${run_date}_run)"

@@ -5,8 +5,9 @@
 #
 # Adds a new numbered analysis to an existing project code. The next free number
 # is assigned automatically (01, 02, 03, …), giving a folder NN_<analysis_name>
-# under 04-analysis/, a matching report folder under 05-reports/, and a dated run
-# folder with starter params.json / summary.md from templates/.
+# under 04-analysis/ with a dated run folder and starter params.json / summary.md
+# from templates/. Reports are a single per-project summary in 05-reports/ (a
+# .pptx + .md), so no report folder is created here.
 
 set -euo pipefail
 
@@ -76,8 +77,6 @@ install_file "04-analysis/Analysis_01/01_diff_expression/2025-07-11_run/summary.
 sed -i "s#01_diff_expression#${analysis_dir}#g" "$run_dir/params.json" "$run_dir/summary.md"
 : > "${analysis_root}/${analysis_dir}/analysis.log"
 
-# Matching report folder with the same number.
-keep "05-reports/Analysis_${project_code}/${analysis_dir}"
-
 echo "✅ Analysis ${analysis_dir} added to project ${project_code} under ${output_dir} (run: ${run_date}_run)."
 echo "   Add its scripts as 02-scripts/Script_${project_code}/${NN}_*.<ext> to keep the shared number."
+echo "   Summarize it in 05-reports/Analysis_${project_code}/report_summary.md when ready."
