@@ -68,6 +68,7 @@ conda env create -f 01-documentation/environment.yml
 ```
 my_study/
 ├── CLAUDE.md             # Claude Code guidance: where outputs go + which .md docs to write
+├── .claude/              # doc-writer agent + /sync-docs command
 ├── 01-documentation/     # metadata, sample sheet, tool versions, data sources, logs
 ├── 02-scripts/           # number-prefixed scripts, per project
 ├── 03-data/              # Raw / Processed / Reference_Data, per project
@@ -227,6 +228,13 @@ directory), it loads those conventions automatically and will:
   versions, experiment log).
 
 No API key or extra setup required — it's plain project memory that Claude Code reads.
+
+Each project also ships a **`doc-writer`** subagent (`.claude/agents/doc-writer.md`)
+and a **`/sync-docs`** command. When you add a script or produce analysis outputs,
+Claude Code delegates to `doc-writer` to generate the matching `.md` docs
+automatically — or run `/sync-docs` to sync everything at once. A `PostToolUse`
+hook nudges Claude to do this whenever a script or analysis artifact is written,
+so the docs never silently fall behind.
 
 ---
 

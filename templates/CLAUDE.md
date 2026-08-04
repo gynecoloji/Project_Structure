@@ -65,6 +65,19 @@ under the **same project code**, before treating the task as done:
 Everything (except the `.pptx`) is Markdown (`.md`) with real Markdown tables. Use
 relative paths and ISO dates (`YYYY-MM-DD`).
 
+## Keeping docs in sync (doc-writer agent)
+
+This project ships a **`doc-writer`** subagent (`.claude/agents/doc-writer.md`).
+Whenever you add or change a script, produce analysis outputs, or land processed
+data, **delegate to `doc-writer`** — or run the **`/sync-docs`** command — to
+generate/update the matched Markdown docs automatically. It is non-destructive
+(fills gaps, preserves your edits) and safe to run repeatedly.
+
+A `PostToolUse` hook (`.claude/settings.json` → `.claude/hooks/doc-reminder.sh`)
+reminds you to do this **automatically** whenever a script (`02-scripts/`),
+processed-data file (`03-data/*/Processed/`), or analysis output (`04-analysis/`)
+is written — so docs never silently fall behind.
+
 ## Always keep 01-documentation/ current
 
 Update the relevant metadata file whenever the project changes:

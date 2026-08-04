@@ -26,8 +26,8 @@ jobs:
           # shellcheck is preinstalled on GitHub-hosted ubuntu runners.
           # Fail on errors; report style/warnings without failing the build
           # (mirrors the critical-vs-advisory lint split in the source repo).
-          shellcheck --severity=error scripts/*.sh
-          shellcheck scripts/*.sh || true
+          shellcheck --severity=error scripts/*.sh templates/.claude/hooks/*.sh
+          shellcheck scripts/*.sh templates/.claude/hooks/*.sh || true
 
       - name: Check bash syntax
         run: |
@@ -53,6 +53,10 @@ jobs:
 
           # Core starter files exist and are non-empty.
           test -s CLAUDE.md
+          test -s .claude/agents/doc-writer.md
+          test -s .claude/commands/sync-docs.md
+          test -s .claude/settings.json
+          test -s .claude/hooks/doc-reminder.sh
           test -s 01-documentation/README.md
           test -s 01-documentation/environment.yml
           test -s 02-scripts/Script_01/script_summary.md

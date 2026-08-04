@@ -75,8 +75,12 @@ run_date="$(date +%F)"
 analysis_dir="01_${analysis_name}"
 run_dir="04-analysis/Analysis_${project_code}/${analysis_dir}/${run_date}_run"
 
-# ── Project root (Claude Code guidance) ──────────────────────────────
+# ── Project root (Claude Code guidance + doc-writer agent) ───────────
 install_once "CLAUDE.md" "CLAUDE.md"
+install_once ".claude/agents/doc-writer.md"  ".claude/agents/doc-writer.md"
+install_once ".claude/commands/sync-docs.md" ".claude/commands/sync-docs.md"
+install_once ".claude/settings.json"         ".claude/settings.json"
+install_once ".claude/hooks/doc-reminder.sh" ".claude/hooks/doc-reminder.sh"
 
 # ── 01 Documentation (project-wide; created once) ─────────────────────
 mkdir -p 01-documentation/design_diagrams
