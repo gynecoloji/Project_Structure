@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/gynecoloji/Project_Structure/compare/v1.2.0...v1.3.0) (2026-08-04)
+
+
+### Added
+
+* ship a doc-writer agent + auto-reminder hook into generated projects ([42b6df4](https://github.com/gynecoloji/Project_Structure/commit/42b6df481e6dbc86a5020e1df6a8fa15b469a899))
+
 ## [1.2.0](https://github.com/gynecoloji/Project_Structure/compare/v1.1.1...v1.2.0) (2026-08-03)
 
 
