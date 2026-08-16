@@ -55,6 +55,7 @@ jobs:
           test -s CLAUDE.md
           test -s .claude/agents/doc-writer.md
           test -s .claude/commands/sync-docs.md
+          test -s .claude/commands/init-project.md
           test -s .claude/settings.json
           test -s .claude/hooks/doc-reminder.sh
           test -s 01-documentation/README.md

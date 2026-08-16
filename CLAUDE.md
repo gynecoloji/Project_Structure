@@ -13,10 +13,11 @@ under `templates/`, not at this repo's root).
   project's root.** Read it to understand the folder-and-number rules those
   projects follow (where scripts/data/analysis/reports go, which `.md` docs to
   generate, and how `01-documentation/` metadata is maintained).
-- `templates/.claude/` — a `doc-writer` subagent, a `/sync-docs` command, and a
-  `PostToolUse` hook (`settings.json` + `hooks/doc-reminder.sh`) that ship into
-  every generated project to keep its Markdown docs in sync with its scripts and
-  analyses.
+- `templates/.claude/` — a `doc-writer` subagent, `/init-project` + `/sync-docs`
+  commands, and a `PostToolUse` hook (`settings.json` + `hooks/doc-reminder.sh`)
+  that ship into every generated project: `/init-project` fills in the starter
+  docs on first run, and the agent/hook keep them in sync with its scripts and
+  analyses thereafter.
 
 ## When editing this repo
 - Keep `scripts/`, `templates/`, and `README.md` **in sync** — a change to the

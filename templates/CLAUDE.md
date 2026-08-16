@@ -67,6 +67,10 @@ relative paths and ISO dates (`YYYY-MM-DD`).
 
 ## Keeping docs in sync (doc-writer agent)
 
+**First run:** in a freshly scaffolded project, run **`/init-project`** — it
+interviews the user and fills in the starter docs (metadata, sample sheet, data
+sources, tools, and the analysis overview).
+
 This project ships a **`doc-writer`** subagent (`.claude/agents/doc-writer.md`).
 Whenever you add or change a script, produce analysis outputs, or land processed
 data, **delegate to `doc-writer`** — or run the **`/sync-docs`** command — to

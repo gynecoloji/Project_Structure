@@ -55,7 +55,7 @@ chmod +x scripts/*.sh
 > on top of the templates. Re-running with an existing project code is refused so
 > you can't overwrite work.
 
-**Then just work in the project.** Open it with Claude Code (`cd ~/projects/my_study && claude`) and it reads the bundled `CLAUDE.md` automatically — see [Working with Claude Code](#-working-with-claude-code). To reproduce the software environment:
+**Then just work in the project.** Open it with Claude Code (`cd ~/projects/my_study && claude`) and it reads the bundled `CLAUDE.md` automatically — see [Working with Claude Code](#-working-with-claude-code). On the first run, **`/init-project`** walks you through filling in the starter docs (metadata, sample sheet, data sources, tools, overview). To reproduce the software environment:
 
 ```bash
 conda env create -f 01-documentation/environment.yml
