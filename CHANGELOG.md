@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/gynecoloji/Project_Structure/compare/v1.3.0...v1.4.0) (2026-08-16)
+
+
+### Added
+
+* add /init-project first-run doc-setup command ([d9d9ca2](https://github.com/gynecoloji/Project_Structure/commit/d9d9ca20c8345c10767dc466f47a43468dda68d6))
+
 ## [1.3.0](https://github.com/gynecoloji/Project_Structure/compare/v1.2.0...v1.3.0) (2026-08-04)
 
 
